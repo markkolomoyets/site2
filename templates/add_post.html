@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+<div id="block_center">
+   {% for cat, msg in get_flashed_messages(True) %}
+    <div class="flash {{cat}}">{{msg}}</div>
+    {% endfor %}
+    <h3 class="text_title">Додати тему</h3>
+    <form action="{{ url_for('addPost') }}" method="post" class="form-contact-login" enctype="multipart/form-data">
+
+        <p class="p_login"><label>Тема статтї: </label><input type="text" name="name" value="" required></p>
+        <p class="p_login"><label>Опис теми </label>
+        <p><textarea name="post" rows="5" cols="40"></textarea></p>
+
+        <div class="file_load">
+            <p class="text_update_avatar">Картинка теми</p>
+
+
+            <div class="input-group">
+              <input type="file" class="form-control" name="file">
+
+            </div>
+
+
+            <div class="d-grid gap-2 mt-4">
+                  <button class="btn btn-primary" type="submit">Додати</button>
+            </div>
+        </div>
+
+
+
+    </form>
+</div>
+
+{% endblock %}

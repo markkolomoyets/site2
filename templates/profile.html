@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div id="block_center">
+    {% for cat, msg in get_flashed_messages(True) %}
+    <div class="flash {{cat}}">{{msg}}</div>
+    {% endfor %}
+
+    <table border="0">
+        <h3 class="text_title">Профіль</h3>
+
+        <div class="card mb-3" >
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img src="{{ url_for('userava') }}" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">{{ current_user.getName() }}</h5>
+                <p class="card-text">{{ current_user.getEmail() }}</p>
+                  <p><small class="text-body-secondary">Статус: {{ current_user.getAdmin() }}</small></p>
+                <small class="text-body-secondary">Дата: {{ current_user.getTime() }}</small>
+                <p class="card-text"><a href="{{ url_for('logout') }}">Вийти з профілю</a></p>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        
+            <div class="file_load">
+                <p class="text_update_avatar">Оновити аватар</p>
+                <form action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+
+                <div class="input-group">
+                  <input type="file" class="form-control" name="file">
+                  <button class="btn btn-outline-secondary" type="submit" >Завантажити</button>
+                </div>
+
+                </form>
+            </div>
+            
+            
+            
+
+            
+
+            
+                
+            
+
+        
+        
+       
+    </table>
+</div>
+
+{% endblock %}

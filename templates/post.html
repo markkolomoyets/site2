@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+<div id="block_center_post">
+   <div class="block_articles">
+        <div class="article_title_block">
+            <h1 class="h1_post">{{ title }}</h1>
+        </div>
+       <img class="img_article" src="{{ url_for('serve_image', filename=img[0]) }}" alt="user">
+       <div id="form" class="main_text_block">
+           <p class="text_article">{{ post }}</p>
+           <a href="" ><img class="img-like" src="/static/images/like_red.png" alt="user"></a>
+       </div>
+    </div>
+
+
+    <div  class="block_articles">
+   <div class="accordion" id="accordionPanelsStayOpenExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+          <h5>Коментарі</h5>
+      </button>
+
+    </h2>
+    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+      <div  class="accordion-body">
+        <strong>{% for cat, msg in get_flashed_messages(True) %}
+    <div class="flash {{cat}}">{{msg}}</div>
+    {% endfor %}
+        </strong>
+
+    <form  action="{{ url_for('showPost', id_post=id) }}" method="post">
+    <label for="floatingTextarea">Додати коментар...</label>
+    <div class="form-floating">
+  <textarea class="form-control" placeholder="Leave a comment here" name="comment" id="floatingTextarea"></textarea>
+    </div>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <button class="btn btn-primary mt-2 mb-2" type="submit">Коментувати</button>
+    </div>
+    </form>
+
+    {% for comments, image_avatar in data %}
+
+    <div class="card mt-4">
+
+          <div class="card-body">
+
+            <p><img src="{{ url_for('serve_images_avatar', filename_avatar=image_avatar) }}"  class="rounded-circle" width="75px" height="75px" alt="...">{{ comments.name }}</p>
+                {{ comments.comment_text }}
+            <p class="card-text"><small class="text-body-secondary">Дата: {{ comments.formatted_time }}</small></p>
+          </div>
+        </div>
+    {% endfor %}
+
+      </div>
+
+
+    </div>
+  </div>
+</div>
+</div>
+
+</div>
+
+{% endblock %}

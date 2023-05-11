@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div id="block_center">
+
+    {% for cat, msg in get_flashed_messages(True) %}
+    <div class="flash {{cat}}">{{msg}}</div>
+    {% endfor %}
+
+    <h3 class="text_title">Авторизація</h3>
+
+    <form action="" method="post" class="form-contact-login">
+        
+        {{ form.hidden_tag() }}
+        {% for field in form if field.name not in ['csrf_token', 'remember', 'submit'] -%}
+        {{ field.label() }}
+            {% if field.errors %}
+                {{ field(class="invalid") }}
+                    <span class="invalid-feedback">
+                        {% for e in field.errors %}
+                        {{ e }}
+                        {% endfor %}
+                    </span>
+                    {% else %}
+                        {{ field() }}
+                    {% endif %}
+        {% endfor %}
+
+        <div class="remember_form">{{ form.remember.label() }}{{ form.remember() }}</div>
+        <p>{{ form.submit() }}</p>
+
+        <hr align="left" width="400px">
+        <p><a href="{{ url_for('register') }}">Реєстрація</a></p>
+
+    </form>
+</div>
+
+
+{% endblock %}
+
+
