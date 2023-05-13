@@ -28,7 +28,7 @@ app.config.update(dict(DATABASE=os.path.join(app.root_path, 'blog.db')))
 login_managar = LoginManager(app)
 login_managar.login_view = 'login'
 login_managar.login_message = 'Авторизуйтесь для доступу до закритих сторінок'
-login_managar.login_message_category = 'success'
+login_managar.login_message_category = 'error'
 app.config['UPLOAD_FOLDER'] = 'static/images'
 # ПОЧ-Управління базою данних sqlite3------------------------------------------------
 
@@ -87,7 +87,7 @@ def hello_world():
 
     posts = dbase.getPostsAnonce()
     data = zip(posts, image_paths)
-    return render_template('home.html', menu=dbase.getMenu(), data=data)
+    return render_template('home.html', menu=dbase.getMenu(), data=data, title='Теми форума')
 
 @app.route('/<filename>')
 def serve_image(filename):
@@ -121,7 +121,7 @@ def addPost():
         else:
             try:
                 # Відкриття та читання файла зображення
-                with open('static/images/default.JPG', 'rb') as f:
+                with open('static/images/post/default.JPG', 'rb') as f:
                     image_data = f.read()
                 if 200 >= len(request.form['name']) >= 4 and 1000 >= len(request.form['post']) >= 10:
                     res = dbase.addPost(request.form['name'], request.form['post'], current_user.get_id(), image_data)
@@ -196,6 +196,7 @@ def login():
             return redirect(request.args.get('next') or url_for('profile'))
 
         flash("Невірна пара логін/пароль", "error")
+
     return render_template('login.html', menu=dbase.getMenu(), title='Авторизація', form=form)
 
 
@@ -254,7 +255,7 @@ def profile():
 @login_required
 @special_user_required
 def admin():
-    return render_template("admin.html", menu=dbase.getMenu(), title="Адмін панель")
+    return render_template("admin.html", tabls=[dbase.getMenu(), dbase.getAllUser()], post=dbase.getMenu(), users=dbase.getAllUser(), title="Адмін панель")
 
 @app.route('/userava')
 @login_required

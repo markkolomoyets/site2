@@ -158,6 +158,19 @@ class FDataBase:
             print(f'Помилка отримання данних з БД {e}')
         return False
 
+    def getAllUser(self):
+        try:
+            self.__cur.execute("SELECT * FROM users ")
+            res = self.__cur.fetchall()
+            if not res:
+                print("Користувачів не знайдено")
+                return False
+
+            return res
+        except sqlite3.Error as e:
+            print(f'Помилка отримання данних з БД {e}')
+        return False
+
     def getUserByEmail(self, email):
         try:
             self.__cur.execute(f"SELECT * FROM users WHERE email = ? LIMIT 1", (email,))

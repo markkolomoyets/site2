@@ -1,17 +1,104 @@
 {% extends 'base.html' %}
 
-
+{% block title %}
+    <title>{{ title }}</title>
+{% endblock %}
 
 {% block body %}
 
 
-<h2>{{ title }}</h2>
+<h2 class="text_title">{{ title }}</h2>
+
+
+<div class="accordion" id="accordionExample">
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        User Table
+      </button>
+    </h2>
+    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <strong>Для роботи з елементом таблиці натисніть на нього.</strong>
+
+          <table class="table table-bordered table-dark table-hover">
+             <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Time</th>
+                  <th scope="col">Admin</th>
+                </tr>
+              </thead>
+
+                <tbody>
+                {% for u in users %}
+                <tr>
+                  <th scope="row">{{ u.id }}</th>
+                  <td>{{ u.name }}</td>
+                  <td>{{ u.email }}</td>
+                  <td>{{ u.time }}</td>
+                  <td>{{ u.admin }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+
+            </table>
+
+      </div>
+    </div>
+  </div>
+
+</div>
 
 
 
+<div class="accordion" id="accordionExample1">
+
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo1" aria-expanded="false" aria-controls="collapseTwo">
+        Post Table
+      </button>
+    </h2>
+    <div id="collapseTwo1" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <strong>Для роботи з елементом таблиці натисніть на нього.</strong>
 
 
+          <table class="table table-bordered table-dark table-hover">
+             <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Title</th>
+                  <th scope="col">Text</th>
+                  <th scope="col">Time</th>
+                  <th scope="col">User</th>
 
+                </tr>
+              </thead>
+
+                <tbody>
+                {% for p in post %}
+                <tr>
+                  <th scope="row">{{ p.id }}</th>
+                  <td>{{ p.title }}</td>
+                  <td>{{ p.text }}</td>
+                  <td>{{ p.time }}</td>
+                  <td>{{ p.user_id }}</td>
+                </tr>
+              {% endfor %}
+              </tbody>
+
+            </table>
+
+      </div>
+    </div>
+  </div>
+
+</div>
 
      
 {% endblock %} 

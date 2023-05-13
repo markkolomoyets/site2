@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block title %}
+    <title>{{ title }}</title>
+{% endblock %}
+
 {% block body %}
 <div id="block_center">
     {% for cat, msg in get_flashed_messages(True) %}
@@ -7,7 +11,7 @@
     {% endfor %}
 
     <table border="0">
-        <h3 class="text_title">Профіль</h3>
+        <h3 class="text_title">{{ title }}</h3>
 
         <div class="card mb-3" >
           <div class="row g-0">
@@ -20,7 +24,8 @@
                 <p class="card-text">{{ current_user.getEmail() }}</p>
                   <p><small class="text-body-secondary">Статус: {{ current_user.getAdmin() }}</small></p>
                 <small class="text-body-secondary">Дата: {{ current_user.getTime() }}</small>
-                <p class="card-text"><a href="{{ url_for('logout') }}">Вийти з профілю</a></p>
+
+                  <p><a href="{{ url_for('logout') }}" class="link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Вийти з профілю</a></p>
 
               </div>
             </div>

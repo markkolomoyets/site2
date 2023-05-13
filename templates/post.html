@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 
+{% block title %}
+    <title>{{ title }}</title>
+{% endblock %}
 
 {% block body %}
 <div id="block_center_post">
@@ -16,26 +19,38 @@
 
 
     <div  class="block_articles">
-   <div class="accordion" id="accordionPanelsStayOpenExample">
+   <div class="accordion"  id="accordionPanelsStayOpenExample" data-bs-theme="dark">
   <div class="accordion-item">
     <h2 class="accordion-header">
-      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+      <button class="accordion-button text-white"  type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
           <h5>Коментарі</h5>
       </button>
 
     </h2>
     <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
-      <div  class="accordion-body">
-        <strong>{% for cat, msg in get_flashed_messages(True) %}
-    <div class="flash {{cat}}">{{msg}}</div>
-    {% endfor %}
+      <div  class="accordion-body" >
+        <strong>
+            {% for cat, msg in get_flashed_messages(True) %}
+                {% if cat == 'success' %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>Успіх!</strong> {{ msg }}
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% else %}
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                      <strong>Помилка!</strong> {{ msg }}
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endif %}
+            {% endfor %}
         </strong>
 
     <form  action="{{ url_for('showPost', id_post=id) }}" method="post">
-    <label for="floatingTextarea">Додати коментар...</label>
-    <div class="form-floating">
-  <textarea class="form-control" placeholder="Leave a comment here" name="comment" id="floatingTextarea"></textarea>
-    </div>
+
+        <div class="mb-3">
+          <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+          <textarea class="form-control" name="comment" id="exampleFormControlTextarea1" rows="3" placeholder="Додайте коментар…"></textarea>
+        </div>
 
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
     <button class="btn btn-primary mt-2 mb-2" type="submit">Коментувати</button>
@@ -46,11 +61,13 @@
 
     <div class="card mt-4">
 
-          <div class="card-body">
+          <div class="card-body" >
 
-            <p><img src="{{ url_for('serve_images_avatar', filename_avatar=image_avatar) }}"  class="rounded-circle" width="75px" height="75px" alt="...">{{ comments.name }}</p>
+            <p><img src="{{ url_for('serve_images_avatar', filename_avatar=image_avatar) }}"  class="rounded-circle" width="50px" height="50px" alt="...">
+                {{ comments.name }}<small class="text-body-secondary"> {{ comments.formatted_time }}</small>
+                <br>
                 {{ comments.comment_text }}
-            <p class="card-text"><small class="text-body-secondary">Дата: {{ comments.formatted_time }}</small></p>
+            </p>
           </div>
         </div>
     {% endfor %}

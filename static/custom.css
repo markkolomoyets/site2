@@ -1,0 +1,62 @@
+
+::-webkit-scrollbar{
+  width: 20px;
+}
+
+::-webkit-scrollbar-track{
+  background: grey;
+}
+
+::-webkit-scrollbar-thumb{
+  background: #D4ADFC;
+}
+
+
+
+.card.h-100{
+	background-color:#1D267D;
+}
+
+h5.card-title{
+	color: #D4ADFC;
+}
+
+
+
+p.card-text{
+	color: #D4ADFC;
+}
+
+p.card-text small{
+	color: white;
+}
+
+.btn.w-100{
+	background-color:#5C469C;
+}
+
+
+
+.btn.w-100:hover{
+	background-color: #D4ADFC;
+}
+
+.bg-body-tertiary{
+	background-color: #5C469C;
+}
+
+.navbar{
+	background-color: #5C469C;
+}
+
+footer{
+	background-color: #5C469C;
+}
+
+.nav-link {
+	color: white;
+}
+
+.accordion-button{
+  background-color:#5C469C ;
+}

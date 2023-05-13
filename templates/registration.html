@@ -1,25 +1,43 @@
 {% extends 'base.html' %}
 
+{% block title %}
+    <title>{{ title }}</title>
+{% endblock %}
+
 {% block body %}
 <div id="block_center">
     {% for cat, msg in get_flashed_messages(True) %}
-    <div class="flash {{cat}}">{{msg}}</div>
+        {% if cat == 'success' %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Успіх!</strong> Ви успішно зареєструвалися.
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% else %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <strong>Помилка!</strong> Перевірте правильність заповнених полів .
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endif %}
     {% endfor %}
-    
-    <h3 class="text_title">Реєстрація</h3>
+
+    <h3 class="text_title">{{ title }}</h3>
 
     <form action="" method="post" class="form-contact-login">
         {{ form.hidden_tag() }}
         {% for field in form if field.name not in ['csrf_token', 'submit'] -%}
-        <p>{{ field.label() }}
+        <p class="text-white">{{ field.label() }}
             {% if field.errors %}
                 {{ field(class="invalid") }}
                     <span class="invalid-feedback">
                         {% for e in field.errors %}
-                        {{ e }}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                          <strong>Помилка!</strong> {{ e }}.
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
                         {% endfor %}
                     </span>
                     {% else %}
+
                         {{ field() }}
                     {% endif %}</p>
         {% endfor %}
@@ -27,8 +45,9 @@
 
         <p>{{ form.submit() }}</p>
 
+
         <hr align="left" width="300px">
-        <p><a href="{{ url_for('login') }}" class="btn btn-primary">Вхід</a></p>
+        <p><a href="{{ url_for('login') }}" class="btn btn-secondary">Вхід</a></p>
 
     </form>
 </div>
